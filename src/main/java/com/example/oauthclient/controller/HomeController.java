@@ -1,7 +1,9 @@
 package com.example.oauthclient.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,9 @@ public class HomeController {
 
     @GetMapping("/callback")
     public ResponseEntity<?> getAuthorizationCode(@RequestParam("code") String code, @RequestParam("state") String state){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        System.out.println("====== Nome:" + name);
         return ResponseEntity.ok().body(code + " - " + state);
     }
 
