@@ -19,7 +19,7 @@ public class UserController {
         return principal.getAttributes();
     }
 
-    @GetMapping("/api/teste")
+    @GetMapping("/login/oauth2/code/pipedrive")
     public ResponseEntity<?> teste() {
         return ResponseEntity.ok().body("Hello!!!!!");
     }

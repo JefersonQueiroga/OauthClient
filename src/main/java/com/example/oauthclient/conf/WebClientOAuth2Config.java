@@ -23,14 +23,20 @@ public class WebClientOAuth2Config {
             @Value("${spring.security.oauth2.client.registration.pipedrive.redirect-uri}") String redirect,
             @Value("${spring.security.oauth2.client.registration.pipedrive.authorization-grant-type}") String authorizationGrantType,
             @Value("${spring.security.oauth2.client.registration.pipedrive.scope}") String scope,
-            @Value("${spring.security.oauth2.client.provider.pipedrive.authorization-uri}") String authorizationUrl
+            @Value("${spring.security.oauth2.client.provider.pipedrive.authorization-uri}") String authorizationUrl,
+            @Value("${spring.security.oauth2.client.provider.pipedrive.user-name-attribute}") String nameAttribute,
+            @Value("${spring.security.oauth2.client.provider.pipedrive.user-info-uri}") String useInfo
+
 
     ) {
         ClientRegistration registration = ClientRegistration.withRegistrationId("pipedrive").tokenUri(token_uri)
                 .clientId(client_id).clientSecret(client_secret)
                 .redirectUri(redirect)
+                .userNameAttributeName(nameAttribute)
                 .authorizationUri(authorizationUrl)
+                .userInfoUri(useInfo)
                 .authorizationGrantType(new AuthorizationGrantType(authorizationGrantType)).build();
+        System.out.println(registration.toString());
         return new InMemoryReactiveClientRegistrationRepository(registration);
     }
 
