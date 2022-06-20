@@ -8,4 +8,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {// @formatter:off
+        http.authorizeRequests()
+                .antMatchers("/", "/oauth/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .oauth2Login();
+    }
+}

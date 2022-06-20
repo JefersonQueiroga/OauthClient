@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/oauth")
 public class HomeController {
 
-    @GetMapping("/callback")
+    @GetMapping("/oauth/callback")
     public ResponseEntity<?> getAuthorizationCode(@RequestParam("code") String code, @RequestParam("state") String state){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
@@ -24,10 +23,11 @@ public class HomeController {
         return ResponseEntity.ok().body(code + " - " + state);
     }
 
-    @GetMapping("/teste")
-    public ResponseEntity<?> teste(){
+    @GetMapping("/api/teste")
+    public ResponseEntity<?> apiTeste() {
         return ResponseEntity.ok().body("Hello!!!!!");
     }
+
     @GetMapping("/user")
     public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
         return principal.getAttributes();
